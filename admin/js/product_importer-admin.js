@@ -108,8 +108,8 @@
 			)
 			$( "#json_order_file" ).change(
 				function(){
-					var filename = $( this ).val();
-					var product_filename   = $( "#json_filesnames" ).val();
+					var filename         = $( this ).val();
+					var product_filename = $( "#json_filesnames" ).val();
 					jQuery.ajax(
 						{
 							type:'POST',
@@ -128,7 +128,5 @@
 				}
 			)
 
-			
-			
 		}
 	);

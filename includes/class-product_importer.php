@@ -164,7 +164,7 @@ class Product_importer {
 		$this->loader->add_action( 'wp_ajax_product_import', $plugin_admin, 'ced_import_products' );
 		// This is a hook for ajax action function which use for bulk import of products
 		$this->loader->add_action( 'wp_ajax_bulk_import', $plugin_admin, 'ced_bulk_import_products' );
-		$this->loader->add_action('wp_ajax_order_import',$plugin_admin,'ced_import_orders');
+		$this->loader->add_action( 'wp_ajax_order_import', $plugin_admin, 'ced_import_orders' );
 	}
 
 	/**
