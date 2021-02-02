@@ -106,6 +106,29 @@
 					)
 				}
 			)
+			$( "#json_order_file" ).change(
+				function(){
+					var filename = $( this ).val();
+					var product_filename   = $( "#json_filesnames" ).val();
+					jQuery.ajax(
+						{
+							type:'POST',
+							url:frontendajax.ajaxurl,
+							data:{
+								action:'order_import',
+								order_filename:filename,
+								product_filename:product_filename,
+								nonce:frontendajax.nonce,
+							},
+							success:function(data){
+								$( "#showdata" ).html( data );
+							}
+						}
+					)
+				}
+			)
 
+			
+			
 		}
 	);

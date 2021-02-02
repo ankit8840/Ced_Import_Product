@@ -156,14 +156,15 @@ class Product_importer {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-		//This is a hook for create admin menu for product importer
+		// This is a hook for create admin menu for product importer
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'add_ced_import_product_menu' );
-		//This is a hook for ajax action which use for show all json file data
+		// This is a hook for ajax action which use for show all json file data
 		$this->loader->add_action( 'wp_ajax_brand_action', $plugin_admin, 'add_json_products' );
-		//This is a hook for ajax action function which use for import products
+		// This is a hook for ajax action function which use for import products
 		$this->loader->add_action( 'wp_ajax_product_import', $plugin_admin, 'ced_import_products' );
-		//This is a hook for ajax action function which use for bulk import of products
+		// This is a hook for ajax action function which use for bulk import of products
 		$this->loader->add_action( 'wp_ajax_bulk_import', $plugin_admin, 'ced_bulk_import_products' );
+		$this->loader->add_action('wp_ajax_order_import',$plugin_admin,'ced_import_orders');
 	}
 
 	/**

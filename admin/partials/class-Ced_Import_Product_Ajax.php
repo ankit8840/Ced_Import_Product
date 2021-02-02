@@ -1,8 +1,10 @@
 <?php
-class Ced_Import_Product_Ajax {	
+class Ced_Import_Product_Ajax {
 	/**
 	 * Insert_json_products
-	 * This is a function for create  
+	 * This is a function for create product
+	 *
+	 * @since 1.0.0
 	 * @param  mixed $value
 	 * @return void
 	 */
@@ -24,7 +26,7 @@ class Ced_Import_Product_Ajax {
 					add_post_meta( $post_id, 'json_products', $attach_id );
 					echo 'sucess';
 				} else {
-					echo $wp_error;
+					esc_html( $wp_error );
 				}
 
 				if ( $value['item']['has_variation'] ) {
@@ -42,10 +44,11 @@ class Ced_Import_Product_Ajax {
 				}
 
 	}
-	
+
 	/**
 	 * Insert_update_postmeta
-	 * 
+	 * This is a function for update post_meta for product
+	 *
 	 * @param  mixed $value
 	 * @param  mixed $post_id
 	 * @return void
@@ -74,9 +77,10 @@ class Ced_Import_Product_Ajax {
 				update_post_meta( $post_id, '_backorders', 'no' );
 				update_post_meta( $post_id, '_stock', $value['item']['stock'] );
 	}
-	
+
 	/**
-	 * insert_featured_image
+	 * Insert_featured_image
+	 * This is a function for import featured image
 	 *
 	 * @param  mixed $image_name_url
 	 * @param  mixed $post_id
@@ -129,9 +133,9 @@ class Ced_Import_Product_Ajax {
 	}
 
 
-	
+
 	/**
-	 * add_product_attributes
+	 * Add_product_attributes
 	 *
 	 * @param  mixed $post_id
 	 * @param  mixed $value
@@ -139,7 +143,7 @@ class Ced_Import_Product_Ajax {
 	 */
 	public function add_product_attributes( $post_id, $value ) {
 		foreach ( $value['item']['attributes'] as $key ) {
-			
+
 			$attribute[ $key['attribute_name'] ] = array(
 				'name'         => $key['attribute_name'],
 				'value'        => $key['attribute_value'],
@@ -150,9 +154,9 @@ class Ced_Import_Product_Ajax {
 			update_post_meta( $post_id, '_product_attributes', $attribute );
 		}
 
-	}	
+	}
 	/**
-	 * ced_add_attributes_variable_product
+	 * Ced_add_attributes_variable_product
 	 *
 	 * @param  mixed $value
 	 * @param  mixed $post_id
@@ -177,9 +181,9 @@ class Ced_Import_Product_Ajax {
 		$this->ced_create_variable_product( $post_id, $value, $attribute );
 
 	}
-	
+
 	/**
-	 * ced_create_variable_product
+	 * Ced_create_variable_product
 	 *
 	 * @param  mixed $post_id
 	 * @param  mixed $value
@@ -187,8 +191,7 @@ class Ced_Import_Product_Ajax {
 	 * @return void
 	 */
 	public function ced_create_variable_product( $post_id, $value, $attribute ) {
-		// echo '<pre>';
-		// print_r($attribute);
+
 		foreach ( $attribute as $key ) {
 			$attr_val = ( explode( '|', $key['value'] ) );
 		}
@@ -205,17 +208,12 @@ class Ced_Import_Product_Ajax {
 			$variation_id = wp_insert_post( $variation );
 
 			foreach ( $value['tier_variation'] as $key => $val ) {
-				// echo "image start<pre>";
-				// print_r($val['images_url']);
+
 				foreach ( $val['images_url'] as $key4 => $imagename ) {
 					if ( $key3 == $key4 ) {
 						$this->insert_featured_image( $imagename, $variation_id );
 					}
 				}
-
-				// foreach($val['images_url'] as $image_name){
-
-				// }
 			}
 
 			$this->ced_update_post_meta_variable_product( $variation_id, $name, $post_id, $value );
@@ -223,9 +221,9 @@ class Ced_Import_Product_Ajax {
 		}
 
 	}
-	
+
 	/**
-	 * ced_update_post_meta_variable_product
+	 * Ced_update_post_meta_variable_product
 	 *
 	 * @param  mixed $variation_id
 	 * @param  mixed $variation_name
@@ -234,9 +232,7 @@ class Ced_Import_Product_Ajax {
 	 * @return void
 	 */
 	public function ced_update_post_meta_variable_product( $variation_id, $variation_name, $post_id, $value ) {
-		// echo '<pre>';
-		// print_r($value['tier_variation']['name']);
-		// die;
+
 		foreach ( $value['item']['variations'] as $all_variation_names ) {
 			if ( $all_variation_names['name'] == $variation_name ) {
 
@@ -271,6 +267,6 @@ class Ced_Import_Product_Ajax {
 		}
 
 	}
-	
+
 }
 

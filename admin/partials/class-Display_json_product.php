@@ -70,9 +70,7 @@ class Display_Json_Product extends WP_List_Table {
 			$item['item']['item_id']
 		);
 	}
-	public function column_images( $item ){
-
-
+	public function column_images( $item ) {
 
 		return sprintf(
 			'<img src="%s" style="width:90px; height:50px;"/>',
@@ -108,24 +106,24 @@ class Display_Json_Product extends WP_List_Table {
 		return $address;
 	}
 	public function column_action( $item ) {
-		$id =  $item['item']['item_sku'];
+		$id = $item['item']['item_sku'];
 		global $wpdb;
-		$product_id = $wpdb->get_var( $wpdb->prepare( "SELECT post_id FROM $wpdb->postmeta WHERE meta_key='_sku' AND meta_value='%s' LIMIT 1", $id ) );
-		if ( $product_id ){
+		$product_id = $wpdb->get_var( $wpdb->prepare( "SELECT post_id FROM $wpdb->postmeta WHERE meta_key='_sku' AND meta_value=%s LIMIT 1", $id ) );
+		if ( $product_id ) {
 			return sprintf(
 				// '<input type="hidden" class="item_id" value='.$item['item']['item_id'].'>
-		
-					'<input type="button" disabled class="button button-primary import_product" name=' . $item['item']['item_id'] . ' value="Imported" />',
-					$item['id']
-				);
+
+				'<input type="button" disabled class="button button-primary import_product" name=' . $item['item']['item_id'] . ' value="Imported" />',
+				$item['id']
+			);
 		} else {
 			return sprintf(
 				// '<input type="hidden" class="item_id" value='.$item['item']['item_id'].'>
-		
-					'<input type="button" class="button button-primary import_product" name=' . $item['item']['item_id'] . ' value="Import" />',
-					$item['id']
-				);		}
-		
+
+				'<input type="button" class="button button-primary import_product" name=' . $item['item']['item_id'] . ' value="Import" />',
+				$item['id']
+			);      }
+
 	}
 	/**
 	 *  Associative array of columns
@@ -188,8 +186,8 @@ class Display_Json_Product extends WP_List_Table {
 
 		// $this->items =$this->get_subscribe( $per_page, $current_page );
 	}
-	
-	
+
+
 	public static function set_screen( $status, $option, $value ) {
 		return $value;
 	}
